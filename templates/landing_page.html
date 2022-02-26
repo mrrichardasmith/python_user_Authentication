@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<center>
+	<h1 style="color:olivedrab">Where MK Chapter votes</h1>
+	<h3 >MK Voters Currently Think:</h3>
+	<div class="container_large">
+	{% for post in posts %}
+		<ul class="pull-left" >&#128205;{{ post.studying }} - {{ post.description }}</ul>
+	{% endfor %}
+	</div>
+	<h3>Vote Total Attending</h3>
+	{% for vote in vote_attending %}
+		<ul>{{ vote_attending.attending }}</ul>
+{% endfor %}
+	
+</center>
+
+
+
+
+{% endblock %}
