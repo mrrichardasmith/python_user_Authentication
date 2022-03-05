@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, DateTimeField, RadioField
 from wtforms.validators import ValidationError, DataRequired, EqualTo, Email
 from models import User
 
@@ -33,6 +33,15 @@ class DestinationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
 
-class VoteAttendingForm(FlaskForm):
-    vote_attending = BooleanField('Attending Next Meeting')
-    submit = SubmitField('Post')
+class ThinkingForm(FlaskForm):
+    thinking_about = StringField('What are you thinking about', validators=[DataRequired()])
+    country = SelectField(u'Country', choices=[('USA', 'United States'), ('UK', 'United Kingdom'), ('EU', 'Europe')])
+    thoughts = StringField('Your thoughts', validators=[DataRequired()])
+    submit = SubmitField('Say It')
+
+class DaySchoolForm(FlaskForm):
+    yourday = RadioField('Your Day Was', choices=['Great', 'OK', 'Blah', 'Ugh!', 'Bad'], validators=[DataRequired()])
+    why = StringField('One Word Why', validators=[DataRequired()])
+    submit = SubmitField('Day Done')
+    
+

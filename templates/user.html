@@ -2,15 +2,14 @@
 
 {% block content %}
 
-
 <center><h1>Welcome back {{current_user.username}}!</h1>
-  <h2>Voting helps steer the group: 
+  <h2>Voting helps steer the family: 
 {% for post in posts %}
 <ul>&#128205;{{ post.studying }} - {{ post.description }}</ul>
 {% endfor %}
     </h2>
     <h1>Vote to change the temperature:</h1>
-    <div class="page">
+    <div class="page border">
         <div class="form">
             <form method="post">
                 {{ form.hidden_tag() }}

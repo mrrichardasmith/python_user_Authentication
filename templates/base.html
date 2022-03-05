@@ -67,7 +67,6 @@
   max-width: 300px;
   margin: 0 auto;
 }
-
 .container_large  {
   position: relative;
   z-index: 1;
@@ -101,6 +100,16 @@
 .container .info span .fa {
   color: #EF3B3A;
 }
+.vote {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 500px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
 
 .pull-left  {
   text-align: left;
@@ -110,24 +119,35 @@ body {
   font-family: Bitter;
 }
 
+th, td {
+  border-bottom: 1px solid #ffa700;
+  padding: 10px;
+  text-align: left;
+}
+
+.border  {
+  border: #ffa700 solid 2px;
+}
   
 </style>
  
         {% if title %}
-        <title>{{ title }} - MK Chapter Voting</title>
+        <title>{{ title }} - Family Voting</title>
         {% else %}
         <title>Vote on It</title>
         {% endif %}
     </head>
     <body>
            <div>
-      <center><h3>Vote to be heard</h3><center>
+      <center><h3>Family Vote - be heard</h3><center>
       
       <a href="{{ url_for('index') }}">Home</a>
       {% if current_user.is_anonymous %}
       <a href="{{ url_for('login') }}">Login</a>
       {% else %}
       <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+      <a href="{{ url_for('vote', username=current_user.username) }}">Voting</a>
+      <a href="{{ url_for('day', username=current_user.username) }}">Day</a>
       <a href="{{ url_for('logout') }}">Logout</a>
       {% endif %}
     </div>
