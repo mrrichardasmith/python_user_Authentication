@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<center><div class="border">
+    <div class="form border">
+      <form class="login-form" action="" method="post" novalidate>
+        {{ peopleForm.hidden_tag() }}
+        <h1>Who are the people in our lives?</h1>
+        <Table>
+          <tr>
+            <td>{{ peopleForm.good.label }}</td>
+            <td>{{ peopleForm.good }}</td>
+            {% for error in peopleForm.good.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>{{ peopleForm.bad.label }}</td>
+            <td>{{ peopleForm.bad }}</td>
+            {% for error in peopleForm.bad.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+          </tr>
+          <tr>
+            <td>{{ peopleForm.ugly.label }}</td>
+            <td>{{ peopleForm.ugly }}</td>
+            {% for error in peopleForm.ugly.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+          </tr>
+        </Table>
+          <p>
+            {{ peopleForm.morewords.label }}<br>
+            {{ peopleForm.morewords(size=6) }}
+            {% for error in peopleForm.morewords.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+          </p>
+          <p>
+            {{ peopleForm.submit }}
+          </p>
+          <p class="message">Not feeling it? <a href="{{ url_for('survey') }}"><strong>Skip question!</strong></a></p>
+     </form>
+   </div>
+</div>
+</center>
+
+
+{% endblock %}

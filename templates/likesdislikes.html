@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<center><div class="page">
+    <div class="form">
+      <form class="login-form" action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        
+          <h1 style="text-align: center">{{ form.likes_dislikes.label }}</h1>
+          <div><img id="landingPic" src="{{ url_for('static', filename='pictures/thumbsupdown.png') }}"></div>
+          <tabel>
+            <tr>
+            {% for subfield in form.likes_dislikes %}
+                <td>{{ subfield.label }}</td>
+                <td>{{ subfield }}</td>
+            {% endfor %}
+            </tr>
+          </tabel>
+          {% for error in form.likes_dislikes.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+        
+          <p>{{ form.country.label }} {{ form.country(size=1) }}</p>
+          
+          {% for error in form.country.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+          
+          
+          <p>{{ form.reason.label }}</p>
+          <p>{{ form.reason(size=32) }}</p>
+          {% for error in form.reason.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+        
+          <p>
+            <td>{{ form.submit() }}</td>
+          </p>
+          <p class="message">Not feeling it? <a href="{{ url_for('index') }}"><strong>Skip question!</strong></a></p>
+     </form>
+   </div>
+</div>
+</center>
+
+
+{% endblock %}

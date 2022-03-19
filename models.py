@@ -11,8 +11,9 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(65), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=False)
     password_hash = db.Column(db.String(120))
-    posts = db.relationship('Post', backref='user.id', lazy='dynamic')
-    Thinking = db.relationship('Thinking', backref='', lazy='dynamic')
+    Likesdislikes = db.relationship('Likesdislikes', backref='user.id', lazy='dynamic')
+    thinking = db.relationship('Thinking', backref='', lazy='dynamic')
+    admin = db.Column(db.String(5))
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
     def check_password(self, password):
@@ -22,16 +23,16 @@ class User(UserMixin, db.Model):
         return '<User {}>'.format(self.username)
 
 
-class Post(db.Model):
+class Likesdislikes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    studying = db.Column(db.String(140))
+    likes_dislikes = db.Column(db.String(7))
     country = db.Column(db.String(140))
-    description = db.Column(db.String(140))
+    reason = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    username = db.Column(db.Integer, db.ForeignKey('user.username'))
 
     def __repr__(self):
-        return '<Post {}>'.format(self.description)
+        return '<Likesdislikes {}>'.format(self.reason)
 
 class Thinking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,6 +55,22 @@ class Day_school(db.Model):
 
     def __repr__(self):
         return '<Day_school {}>'.format(self.why)
+
+class People(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    good = db.Column(db.String(50))
+    bad = db.Column(db.String(50))
+    ugly = db.Column(db.String(50))
+    morewords = db.Column(db.String(120))
+    username = db.Column(db.String, db.ForeignKey('user.username'))
+
+    def __repr__(self):
+        return '<People {}>'.format(self.morewords)
+
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    registration = db.Column(db.Boolean)
     
 
 @login.user_loader 

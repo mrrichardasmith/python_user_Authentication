@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, DateTimeField, RadioField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, DateTimeField, RadioField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, EqualTo, Email
 from models import User
 
@@ -17,11 +17,11 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
-class DestinationForm(FlaskForm):
-    studying = StringField('studying')
-    country = StringField('country')
-    description = StringField('description')
-    submit = SubmitField('Post')
+class LikesDislikesForm(FlaskForm):
+    likes_dislikes = RadioField('Like or Dislike', choices=['Likes', 'Dislikes'], validators=[DataRequired()])
+    country = SelectField(u'Country', choices=[('USA', 'United States'), ('UK', 'United Kingdom'), ('EU', 'Europe')])
+    reason = StringField('More Words')
+    submit = SubmitField('Submit')
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -41,7 +41,16 @@ class ThinkingForm(FlaskForm):
 
 class DaySchoolForm(FlaskForm):
     yourday = RadioField('Your Day Was', choices=['Great', 'OK', 'Blah', 'Ugh!', 'Bad'], validators=[DataRequired()])
-    why = StringField('One Word Why', validators=[DataRequired()])
+    why = StringField('More Words Why', validators=[DataRequired()])
     submit = SubmitField('Day Done')
-    
 
+class GoodBadUglyForm(FlaskForm):
+    good = StringField('Was anybody kind or friendly today?')
+    bad = StringField('Did anyone make life difficult today?')
+    ugly = StringField('Was anybody mean to you today?')
+    morewords = TextAreaField('More Words')
+    submit = SubmitField('Submit')
+
+class AdminForm(FlaskForm):
+      registration = BooleanField('Disable Registration')  
+      submit = SubmitField('Save Change')
