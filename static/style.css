@@ -151,8 +151,32 @@ th, td {
   border: #fff1d8 solid 2px;
 }
 
+.nav  {
+  width: 100%;
+  
+}
+
+.innerNav {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navOption  {
+  margin: 1rem;
+}
+
 #landingPic {
     height: 10rem;
+}
+
+.navPic {
+  height: 4rem;
+}
+
+.headingColor {
+  color: #c0362c
 }
 
 
