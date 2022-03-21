@@ -6,7 +6,9 @@
     <div class="form border">
       <form class="login-form" action="" method="post" novalidate>
         {{ peopleForm.hidden_tag() }}
-        <h1>Who are the people in our lives?</h1>
+        <a href="{{ url_for('people') }}"><img class="landingPic" src="{{ url_for('static', filename='pictures/people.jpg') }}"></a>  
+
+        <h1 class="headingColor">Who are the people in our lives?</h1>
         <Table>
           <tr>
             <td>{{ peopleForm.good.label }}</td>

@@ -4,17 +4,13 @@
 
 <div class="border">
   <div class="survey from border">
-    <h1>Hi {{ current_user.username }} </h1>   
-    <h1>Sharing your thoughts helps everybody in the family</h1>
+    <h1 class="HeadingColor">Hi {{ current_user.username }} </h1>   
+    <h1 class="HeadingColor">Sharing your thoughts helps everybody in the family</h1>
       <form class="form" method="post">
       {{ form.hidden_tag() }}      
         <p>
         {{ form.thinking_about.label }}<br>
         {{ form.thinking_about(size=32)  }}
-      </p>
-      <p>
-        {{ form.country.label}}<br>
-        {{ form.country(size=1) }}
       </p>
       <p>
         {{ form.thoughts.label }}<br>

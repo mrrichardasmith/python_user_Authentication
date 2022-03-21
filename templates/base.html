@@ -1,12 +1,9 @@
 <html>
     <head>
  
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<style>
-  
-</style>
- 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     
         {% if title %}
         <title>{{ title }} - Family Focus</title>
         {% else %}
@@ -14,33 +11,45 @@
         {% endif %}
     </head>
     <body>
-        <center><h3>Family Focus</h3></center>
+        <center><h2>Family Focus</h2></center>
         <div class="nav">
             <div class="innerNav">
                 <div class="navOption">
-                    <img class="navPic" src="{{ url_for('static', filename='pictures/home.png') }}">  
+                    <a href="{{ url_for('index') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/home.png') }}"></a>  
                     <p><a href="{{ url_for('index') }}">Home</a></p>
                 </div>
-                <div class="navOption">
-                    <img class="navPic" src="{{ url_for('static', filename='pictures/thumbsupdown.png') }}">  
-                    <p><a href="{{ url_for('likesdislikes') }}">Likes & Dislikes</a></p>
-                </div>
+               
                 
                 {% if current_user.is_anonymous %}
                 <div class="navOption">
-                    <a href="{{ url_for('login') }}">Login</a>
+                    <a href="{{ url_for('login') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/lock.png') }}"></a>
+                    <p><a href="{{ url_for('login') }}">Login</a></p>
                 </div>
                 {% else %}
                 <!--<a href="{{ url_for('user', username=current_user.username) }}">Likes Dislikes</a>-->
             <div class="navOption">
-                <img class="navPic" src="{{ url_for('static', filename='pictures/howday.png') }}">
+                <a href="{{ url_for('day', username=current_user.username) }}"><img class="navPic" src="{{ url_for('static', filename='pictures/howday2.png') }}"></a>
                 <p><a href="{{ url_for('day', username=current_user.username) }}">How was your day</a></p>
+            </div>
+
+            <div class="navOption">
+                <a href="{{ url_for('likesdislikes') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/thumbsupdown.png') }}"></a>  
+                <p><a href="{{ url_for('likesdislikes') }}">Likes & Dislikes</a></p>
+            </div>
+
+            <div class="navOption">
+                <a href="{{ url_for('survey') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/bulb.png') }}"></a>  
+                <p><a href="{{ url_for('survey') }}">Thoughts</a></p>
             </div>
             
             <div class="navOption">
+                <a href="{{ url_for('people') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/people.jpg') }}"></a>  
+                <p><a href="{{ url_for('people') }}">People</a></p>
+            </div>
+
+            <div class="navOption">
                 <img class="navPic" src="{{ url_for('static', filename='pictures/exit.png') }}">
-                <p><a href="{{ url_for('logout') }}">Logout</a</p>
-                
+                <p><a href="{{ url_for('logout') }}">Logout</a></p>                
             </div>
             {% endif %}
         </div>

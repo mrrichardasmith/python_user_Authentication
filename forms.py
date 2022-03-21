@@ -35,7 +35,6 @@ class LikesDislikesForm(FlaskForm):
 
 class ThinkingForm(FlaskForm):
     thinking_about = StringField('What are you thinking about', validators=[DataRequired()])
-    country = SelectField(u'Country', choices=[('USA', 'United States'), ('UK', 'United Kingdom'), ('EU', 'Europe')])
     thoughts = StringField('Your thoughts', validators=[DataRequired()])
     submit = SubmitField('Say It')
 

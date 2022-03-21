@@ -80,7 +80,7 @@ def index():
   #by deducting a number of days from the current datetime you have an comparable datetime to compare to the database, we could still run into time issues.
   #We could separate the day, Month, year and time before saving it to separate columns in the database to make it easier to query
   #Until we put in more suphisticated filtering it solves for pulling in the whole table
-  new_date = datetime.now() - timedelta(days = 5)
+  new_date = datetime.now() - timedelta(days = 20)
   print(new_date)
   #function route currently not scalable because its calling for all the data in the tables which will grow over time.
   likesdislikes = Likesdislikes.query.filter(Likesdislikes.timestamp > new_date).all()
@@ -127,7 +127,7 @@ def survey():
 
   if request.method == 'POST' and form.validate():
 #Thinking is a database class as can be seen if you look at the import statements above and check the models.
-    new_thoughts = Thinking(thinking_about = form.thinking_about.data, country=form.country.data, thoughts=form.thoughts.data, username=current_user.username )
+    new_thoughts = Thinking(thinking_about = form.thinking_about.data, thoughts=form.thoughts.data, username=current_user.username )
 #commands to send the new class to the database to persist the data, note the need for the two statements.
     db.session.add(new_thoughts)
     db.session.commit()

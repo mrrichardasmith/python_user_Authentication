@@ -30,7 +30,7 @@
 			{% endfor %}
 		</table>
 	</div>
-	<div class="item3 border">
+	<div class="item3">
 		<h1 class="HeadingColor">Things we like and dislike about here or there</h1>
 		<div>
 			<table>
@@ -60,7 +60,7 @@
 				<th>Date/Time</th>
 				<th>Thought</th>
 				<th>More Words</th>
-				<th>Country</th>
+				
 			</tr>
 			{% for thought in thoughts %}
 			<tr>
@@ -68,7 +68,7 @@
 				<td>{{ thought.timestamp }}</td> 
 				<td>{{ thought.thinking_about }}</td>  
 				<td>{{ thought.thoughts }}</td>
-				<td>{{ thought.country }}</td>
+				
 			</tr>
 			{% endfor %}
 		</table>

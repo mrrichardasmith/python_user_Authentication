@@ -37,7 +37,6 @@ class Likesdislikes(db.Model):
 class Thinking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     thinking_about = db.Column(db.String(140))
-    country = db.Column(db.String(20))
     thoughts = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     username = db.Column(db.String, db.ForeignKey('user.username'))
