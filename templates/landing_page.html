@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% include "nav_update.html" %}
+
 {% block content %}
 
 <div class="grid-container">
@@ -10,26 +12,6 @@
 		</div>
 	</div>
 		
-	<div class="item2">
-		<h1 class="HeadingColor">Family Daily Pulse</h1>
-		<table>
-			<tr>
-				<th>Family Member</th>
-				<th>Date</th>
-				<th>Day Went</th>
-				<th>Why</th>
-			</tr>
-			
-			{% for day in days %}
-			<tr>
-				<td>{{ day.username }}</td>
-				<td>{{ day.date }}</td>
-				<td style="color: palevioletred"><strong>{{ day.yourday }}</strong></td>
-				<td>{{ day.why }} </td>
-			</tr>
-			{% endfor %}
-		</table>
-	</div>
 	<div class="item3">
 		<h1 class="HeadingColor">Things we like and dislike about here or there</h1>
 		<div>

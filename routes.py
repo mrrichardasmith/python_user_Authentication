@@ -80,7 +80,7 @@ def index():
   #by deducting a number of days from the current datetime you have an comparable datetime to compare to the database, we could still run into time issues.
   #We could separate the day, Month, year and time before saving it to separate columns in the database to make it easier to query
   #Until we put in more suphisticated filtering it solves for pulling in the whole table
-  new_date = datetime.now() - timedelta(days = 20)
+  new_date = datetime.now() - timedelta(days = 7)
   print(new_date)
   #function route currently not scalable because its calling for all the data in the tables which will grow over time.
   likesdislikes = Likesdislikes.query.filter(Likesdislikes.timestamp > new_date).all()
@@ -190,9 +190,32 @@ def likesdislikes():
 
     return redirect(url_for('index'))
     
-
+@app.route('/pulse_report')
+def pulsereport():
+  if request.method == 'GET':
+    new_date = datetime.now() - timedelta(days = 7)
+    days = Day_school.query.filter(Day_school.date > new_date).all()
+    return render_template('familypulsereport.html', days=days, testdelete=testdelete)
 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+def testdelete(id):
+  print('Function Fired')
+  delete = Day_school.query.filter(Day_school.id == id).first()
+  db.session.delete(delete)
+  db.session.commit()
+    
+  return 'This is a test delete route'
+
+@app.route('/testupdate/<id>/<yourday>', methods=['GET', 'POST'])
+def testupdate(id, yourday):
+  if request.method == 'GET':
+    update = Day_school.query.get(id)
+    update.yourday = yourday
+    db.session.commit()
+
+  return 'This is a test update'

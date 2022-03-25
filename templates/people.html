@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<center><div class="border">
-    <div class="form border">
-      <form class="login-form" action="" method="post" novalidate>
+<center>
+  <div class="page">
+      <form class="form" action="" method="post" novalidate>
         {{ peopleForm.hidden_tag() }}
-        <a href="{{ url_for('people') }}"><img class="landingPic" src="{{ url_for('static', filename='pictures/people.jpg') }}"></a>  
+        <img class="landingPic" src="{{ url_for('static', filename='pictures/people.jpg') }}"> 
 
         <h1 class="headingColor">Who are the people in our lives?</h1>
         <Table>
@@ -44,7 +44,7 @@
           </p>
           <p class="message">Not feeling it? <a href="{{ url_for('survey') }}"><strong>Skip question!</strong></a></p>
      </form>
-   </div>
+   {% include "nav_update.html" %}
 </div>
 </center>
 

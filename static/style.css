@@ -2,9 +2,14 @@
 
 
 .page {
-  width: 360px;
+  max-width: 600px;
   padding: 2% 0 0;
   margin: auto;
+}
+.report {
+  max-width: 50rem;
+  padding: 2% 2% 2% 2%;
+    
 }
 .form {
   position: relative;
@@ -161,6 +166,7 @@ th, td {
   margin: auto;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .navOption  {
@@ -173,6 +179,9 @@ th, td {
 
 .navPic {
   height: 4rem;
+}
+.iconPic  {
+  height: 1rem
 }
 
 .headingColor {
