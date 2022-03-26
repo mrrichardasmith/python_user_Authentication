@@ -1,8 +1,8 @@
 from asyncio.windows_events import NULL
 from cgitb import html
 from flask import request, render_template, flash, redirect,url_for
-from models import User, Likesdislikes, Thinking, Day_school, People, Admin
-from forms import RegistrationForm, LoginForm, LikesDislikesForm, ThinkingForm, DaySchoolForm, GoodBadUglyForm, AdminForm
+from models import User, Likesdislikes, Thinking, Day_school, People, Admin, Life_hacks
+from forms import RegistrationForm, LoginForm, LikesDislikesForm, ThinkingForm, DaySchoolForm, GoodBadUglyForm, AdminForm, LifeHacksForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
@@ -98,11 +98,8 @@ def index():
   # In this case we filter by username which is a field we get through relationship with User and then call all records by a user that are Likes
   likesdislikes_username = Likesdislikes.query.filter(Likesdislikes.username == 'richard', Likesdislikes.likes_dislikes == 'Likes').all()
   print(likesdislikes_username)
-  # The first record from a list of records that match the logic specified in this case just the first record.
-  people_date = People.query.first()
-  #print the year, month, day from a datetime object stored in the database
-  print( people_date.date.day, people_date.date.month, people_date.date.year )
-  people = People.query.filter(People.date > new_date).all() 
+  
+   
 
   thoughts = Thinking.query.filter(Thinking.timestamp > new_date).all()
 
@@ -116,7 +113,7 @@ def index():
     likesdislikes=[]
   
 #render template returns the html page and passes the data called through to be unpacked on that page
-  return render_template( 'landing_page.html', likesdislikes=likesdislikes, thoughts=thoughts, days=days, current_user=current_user, people=people )
+  return render_template( 'landing_page.html', thoughts=thoughts, days=days, current_user=current_user, people=people )
 
 @app.route('/survey', methods=['GET', 'POST'])
 @login_required
@@ -169,6 +166,24 @@ def faces  ():
   if request.method == 'GET':
     return render_template('faces.html')
 
+@app.route('/lifehacks', methods=['GET', 'POST'])
+def lifehacks():
+  hack = LifeHacksForm()
+  if  request.method == 'GET':
+    
+
+    return render_template('lifehacks.html', user=current_user, hack=hack)
+
+  if request.method == 'POST' and hack.validate():
+    print('Family Hacks')
+    new_hack = Life_hacks(hacktitle=hack.hack_title.data, hackdescription=hack.hack_description.data, username=current_user.username)
+    db.session.add(new_hack)
+    db.session.commit()
+    return redirect(url_for('lifehacks'))
+    
+  
+
+
 @app.route('/likesdislikes', methods=['GET', 'POST'])
 def likesdislikes():
   form = LikesDislikesForm()
@@ -183,19 +198,44 @@ def likesdislikes():
     return render_template('likesdislikes.html', likesdislikes=likesdislikes, form=form)
   
   if request.method == 'POST':
-    print('Hello World')
+    print('Likes & Dislikes POST')
     new_likesdislikes = Likesdislikes(likes_dislikes=form.likes_dislikes.data, country=form.country.data, reason=form.reason.data, username=current_user.username)
     db.session.add(new_likesdislikes)
     db.session.commit()
 
     return redirect(url_for('index'))
     
+@app.route('/reports')
+def reports():
+  if request.method == 'GET':
+    
+    return render_template('reports.html')
+
 @app.route('/pulse_report')
 def pulsereport():
   if request.method == 'GET':
     new_date = datetime.now() - timedelta(days = 7)
     days = Day_school.query.filter(Day_school.date > new_date).all()
     return render_template('familypulsereport.html', days=days, testdelete=testdelete)
+
+@app.route('/likesdislikes_report')
+def likesdislikesreport():
+  if request.method == 'GET':
+    new_date = datetime.now() - timedelta(days = 7)
+    likesdislikes = Likesdislikes.query.filter(Likesdislikes.timestamp > new_date).all()
+    return render_template('likesdislikesreport.html', likesdislikes=likesdislikes)
+
+@app.route('/people_report')
+def peoplereport():
+  if request.method == 'GET':
+    new_date = datetime.now() - timedelta(days = 7)
+    print(new_date)
+    people = People.query.filter(People.date > new_date).all()
+    # The first record from a list of records that match the logic specified in this case just the first record.
+    people_date = People.query.first()
+    #print the year, month, day from a datetime object stored in the database
+    print( people_date.date.day, people_date.date.month, people_date.date.year )
+    return render_template('peoplereport.html', people=people)
 
 @app.route('/logout')
 def logout():

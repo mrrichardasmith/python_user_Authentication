@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="report">
+    <h1 class="HeadingColor">Things we like and dislike about here or there</h1>
+    <div>
+        <table>
+            <tr>
+                <th>Likes & Dislikes</th>
+                <th>Reasons</th>
+                <th>Family Member</th>
+            </tr>
+            
+            {% for likedislike in likesdislikes %}
+            <tr>
+                <td>{{ likedislike.likes_dislikes }}</td>
+                <td>{{ likedislike.reason }}</td>
+                <td>{{ likedislike.username }}</td>
+                <td>{{ likedislike.country }}</td>
+            </tr>
+                {% endfor %}
+            
+        </table>
+    </div>
+</div>
+
+{% endblock %}

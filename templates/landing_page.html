@@ -11,29 +11,7 @@
 			<img id="landingPic" src="{{ url_for('static', filename='pictures/yesnomaybe.jpg') }}">
 		</div>
 	</div>
-		
-	<div class="item3">
-		<h1 class="HeadingColor">Things we like and dislike about here or there</h1>
-		<div>
-			<table>
-				<tr>
-					<th>Likes & Dislikes</th>
-					<th>Reasons</th>
-					<th>Family Member</th>
-				</tr>
-				
-				{% for likedislike in likesdislikes %}
-				<tr>
-					<td>{{ likedislike.likes_dislikes }}</td>
-					<td>{{ likedislike.reason }}</td>
-					<td>{{ likedislike.username }}</td>
-					<td>{{ likedislike.country }}</td>
-				</tr>
-					{% endfor %}
-				
-			</table>
-		</div>
-	</div>  
+		  
 	<div class="item4">
 		<h1 class="HeadingColor">Family Members Thoughts</h1>
 		<table>
@@ -55,29 +33,7 @@
 			{% endfor %}
 		</table>
 	</div>
-	<div class="item5">
-		<h1 class="HeadingColor">Relationships beyond our immediate family?</h1>
-		<table>
-			<tr>
-				<th>Username</th>
-				<th>Date</th>
-				<th>Good</th>
-				<th>Difficult</th>
-				<th>Mean</th>
-				<th>More Words</th>
-			</tr>
-			{% for p in people%}
-			<tr>
-				<td>{{ p.username}}</td>
-				<td>{{ p.date}}</td>
-				<td>{{ p.good}}</td>
-				<td>{{ p.bad}}</td>
-				<td>{{ p.ugly}}</td>
-				<td>{{ p.morewords}}</td>
-			</tr>
-			{% endfor %}
-		</table>
-	</div>
+	
 </div>
 
 {% endblock %}

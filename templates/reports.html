@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="page">
+    <div class="grid-container">   
+        <div class="item1 border">
+            <div class="navOption">
+                <a href="{{ url_for('peoplereport') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/people.jpg') }}"></a>  
+                <p><a href="{{ url_for('peoplereport') }}">People Report</a></p>
+            </div>
+        </div>
+        <div class="item2 border">
+            <div class="navOption">
+                <a href="{{ url_for('likesdislikesreport') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/thumbsupdown.png') }}"></a>  
+                <p><a href="{{ url_for('likesdislikesreport') }}">Likes & Dislikes Report</a></p>
+            </div>
+        </div>
+        <div class="item3 border">
+        three
+        </div>
+        <div class="item4 border">
+        four
+        </div>
+        <div class="item5 border">
+        five
+        </div>
+        <div class="item6 border">
+        six
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

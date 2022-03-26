@@ -16,7 +16,7 @@
             <!--<a href="{{ url_for('user', username=current_user.username) }}">Likes Dislikes</a>-->
         <div class="navOption">
             <a href="{{ url_for('day', username=current_user.username) }}"><img class="navPic" src="{{ url_for('static', filename='pictures/howday2.png') }}"></a>
-            <p><a href="{{ url_for('day', username=current_user.username) }}">How was your day</a></p>
+            <p><a href="{{ url_for('day', username=current_user.username) }}">Your day</a></p>
         </div>
     
 
@@ -37,8 +37,8 @@
         </div>
 
         <div class="navOption">
-            <a href="{{ url_for('people') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/people.jpg') }}"></a>  
-            <p><a href="{{ url_for('people') }}">People</a></p>
+            <a href="{{ url_for('reports') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/report.jpg') }}"></a>  
+            <p><a href="{{ url_for('reports') }}">Reports</a></p>
         </div>
     
     

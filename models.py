@@ -45,6 +45,12 @@ class Thinking(db.Model):
     def __repr__(self):
         return '<Thinking {}>'.format(self.username)
 
+class Life_hacks(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    hacktitle = db.Column(db.String(120))
+    hackdescription = db.Column(db.String(500))
+    username = db.Column(db.String, db.ForeignKey('user.username'))
+
 class Day_school(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)

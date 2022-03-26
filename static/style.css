@@ -140,13 +140,14 @@ th, td {
 .item3 { grid-area: dash3; }
 .item4 { grid-area: dash4; }
 .item5 { grid-area: dash5; }
+.item6 { grid-area: dash6; }
 
 .grid-container {
   display: grid;
   grid-template-areas:
-    'dash1 dash1 dash1 dash1 dash1'
-    'dash2 dash2 dash2 dash3 dash3'
-    'dash4 dash4 dash4 dash5 dash5';
+    'dash1 dash1 dash2 dash2'
+    'dash3 dash3 dash4 dash4'
+    'dash5 dash5 dash6 dash6 ';
   gap: 50px;
   padding: 20px;
 }

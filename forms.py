@@ -38,6 +38,11 @@ class ThinkingForm(FlaskForm):
     thoughts = StringField('Your thoughts', validators=[DataRequired()])
     submit = SubmitField('Say It')
 
+class LifeHacksForm(FlaskForm):
+    hack_title = StringField('Life Hack Title', validators=[DataRequired()])
+    hack_description = TextAreaField('Life Hack Description', validators=[DataRequired()])
+    submit = SubmitField('Hack It')
+
 class DaySchoolForm(FlaskForm):
     yourday = RadioField('Your Day Was', choices=['Great', 'OK', 'Blah', 'Ugh!', 'Bad'], validators=[DataRequired()])
     why = StringField('More Words Why', validators=[DataRequired()])
