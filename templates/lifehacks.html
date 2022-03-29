@@ -4,8 +4,8 @@
 
 <div class="page">
     <form class="form" method="post">
-      <h1 class="HeadingColor">Hi {{ current_user.username }} </h1>   
-      <h1 class="HeadingColor">Family Life Hacks</h1>
+      <h1 class="mainTextColor">Hi {{ current_user.username }} </h1>   
+      <h1 class="mainTextColor">Family Life Hacks</h1>
       {{ hack.hidden_tag() }}      
       <p>
       {{ hack.hack_title.label }}<br>

@@ -23,7 +23,8 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    registration = Admin.query.first()      
+    return render_template('login.html', title='Sign In', form=form, registration=registration)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -44,32 +45,36 @@ def register():
 def user(username):
   if request.method == 'GET':
 
-    return render_template('user.html')
+    return render_template('user.html', username=username)
 	
 @app.route('/admin/<username>', methods=['GET', 'POST'])
 @login_required
 def admin(username):
   admin_form = AdminForm()
-  checked = ''
+  
   if request.method == 'GET':
     admin = User.query.filter(User.username == username).first()
+    registration = Admin.query.first()
+    print(registration.registration)
     print(admin.username, admin.admin)
-    confirm_admin = ''
-    if admin.admin:
-      confirm_admin = True
-      print(confirm_admin)
-      check_registration = Admin.query.first()
-      print(check_registration.id, check_registration.registration)  
-      return render_template('admin.html', confirm_admin=confirm_admin, admin_form=admin_form)
+    
+    if admin.admin == 'admin':
+      
+      return render_template('admin.html', admin=admin, admin_form=admin_form, registration=registration)
 
     else:
       print('Supressed Registration Page')
       confirm_admin = False
-      return render_template('admin.html', confirm_admin=confirm_admin)
+      return render_template('admin.html', confirm_admin=confirm_admin, admin=NULL)
 
   if request.method == 'POST' and admin_form.validate():
-    new_adminform = Admin(registration=admin_form.registration.data)
-    db.session.add(new_adminform)
+    
+    new_admin = Admin.query.get(1)
+    print(new_admin)
+    if new_admin.registration == True:
+      new_admin.registration = False
+    else:
+      new_admin.registration = True
     db.session.commit()
     return redirect(url_for('admin', username=current_user.username))
 
@@ -98,14 +103,6 @@ def index():
   # In this case we filter by username which is a field we get through relationship with User and then call all records by a user that are Likes
   likesdislikes_username = Likesdislikes.query.filter(Likesdislikes.username == 'richard', Likesdislikes.likes_dislikes == 'Likes').all()
   print(likesdislikes_username)
-  
-   
-
-  thoughts = Thinking.query.filter(Thinking.timestamp > new_date).all()
-
-  lucky = Thinking.query.filter(Thinking.thoughts.like('%lucky%')).all()
-  for luck in lucky:
-    print(luck)
 
   days = Day_school.query.filter(Day_school.date > new_date).all()
   
@@ -113,7 +110,7 @@ def index():
     likesdislikes=[]
   
 #render template returns the html page and passes the data called through to be unpacked on that page
-  return render_template( 'landing_page.html', thoughts=thoughts, days=days, current_user=current_user, people=people )
+  return render_template( 'landing_page.html', current_user=current_user )
 
 @app.route('/survey', methods=['GET', 'POST'])
 @login_required
@@ -182,6 +179,13 @@ def lifehacks():
     return redirect(url_for('lifehacks'))
     
   
+@app.route('/housekeeping', methods=['GET', 'POST'])
+def housekeeping():
+  #housekeeping = HouseKeepingForm()
+  if  request.method == 'GET':
+    
+
+    return render_template('housekeeping.html', user=current_user)
 
 
 @app.route('/likesdislikes', methods=['GET', 'POST'])
@@ -214,21 +218,21 @@ def reports():
 @app.route('/pulse_report')
 def pulsereport():
   if request.method == 'GET':
-    new_date = datetime.now() - timedelta(days = 7)
+    new_date = datetime.now() - timedelta(days = 30)
     days = Day_school.query.filter(Day_school.date > new_date).all()
     return render_template('familypulsereport.html', days=days, testdelete=testdelete)
 
 @app.route('/likesdislikes_report')
 def likesdislikesreport():
   if request.method == 'GET':
-    new_date = datetime.now() - timedelta(days = 7)
+    new_date = datetime.now() - timedelta(days = 30)
     likesdislikes = Likesdislikes.query.filter(Likesdislikes.timestamp > new_date).all()
     return render_template('likesdislikesreport.html', likesdislikes=likesdislikes)
 
 @app.route('/people_report')
 def peoplereport():
   if request.method == 'GET':
-    new_date = datetime.now() - timedelta(days = 7)
+    new_date = datetime.now() - timedelta(days = 30)
     print(new_date)
     people = People.query.filter(People.date > new_date).all()
     # The first record from a list of records that match the logic specified in this case just the first record.
@@ -236,6 +240,24 @@ def peoplereport():
     #print the year, month, day from a datetime object stored in the database
     print( people_date.date.day, people_date.date.month, people_date.date.year )
     return render_template('peoplereport.html', people=people)
+
+@app.route('/thoughts_report')
+def thoughtreport():
+  if request.method == 'GET':
+    new_date = datetime.now() - timedelta(days = 30)
+    print(new_date)
+    thoughts = Thinking.query.filter(Thinking.timestamp > new_date).all()
+    return render_template('thoughtsreport.html', thoughts=thoughts)
+
+@app.route('/lifehacks_report')
+def lifehacksreport():
+  if request.method == 'GET':
+    new_date = datetime.now() - timedelta(days = 30)
+    print(new_date)
+    hacks = Life_hacks.query.filter(Life_hacks.date > new_date).all()
+    
+    return render_template('lifehacks_report.html', hacks=hacks)
+    
 
 @app.route('/logout')
 def logout():
@@ -259,3 +281,6 @@ def testupdate(id, yourday):
     db.session.commit()
 
   return 'This is a test update'
+
+
+  

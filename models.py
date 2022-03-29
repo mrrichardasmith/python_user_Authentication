@@ -47,6 +47,7 @@ class Thinking(db.Model):
 
 class Life_hacks(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     hacktitle = db.Column(db.String(120))
     hackdescription = db.Column(db.String(500))
     username = db.Column(db.String, db.ForeignKey('user.username'))

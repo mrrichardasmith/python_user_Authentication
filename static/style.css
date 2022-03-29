@@ -129,11 +129,20 @@ body {
   font-family: Bitter;
 }
 
+table {
+  border: 1px solid #ffa700;
+}
+
+table tr:nth-child(even){
+  background-color: #f2f2f2;
+} 
+
 th, td {
   border-bottom: 1px solid #ffa700;
   padding: 10px;
   text-align: left;
 }
+
 
 .item1 { grid-area: dash1; }
 .item2 { grid-area: dash2; }
@@ -185,8 +194,13 @@ th, td {
   height: 1rem
 }
 
-.headingColor {
+.mainTextColor {
   color: #c0362c
 }
 
+.navOption a {
+  text-decoration: none;
+  color: #4d1a16;
+  font-size: 1.25rem;
+}
 

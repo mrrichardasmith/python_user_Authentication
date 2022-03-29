@@ -1,39 +1,16 @@
 {% extends "base.html" %}
 
-{% include "nav_update.html" %}
-
 {% block content %}
 
-<div class="grid-container">
-	<div class="item1">
+<div class="page">
+    <div class="item1">
 		<div class="container_large text-center">
-			<h1 class="HeadingColor">Family Dashboard</h1>
+			<h1 class="mainTextColor">Family Dashboard</h1>
 			<img id="landingPic" src="{{ url_for('static', filename='pictures/yesnomaybe.jpg') }}">
 		</div>
 	</div>
-		  
-	<div class="item4">
-		<h1 class="HeadingColor">Family Members Thoughts</h1>
-		<table>
-			<tr>
-				<th>Family Member</th>
-				<th>Date/Time</th>
-				<th>Thought</th>
-				<th>More Words</th>
-				
-			</tr>
-			{% for thought in thoughts %}
-			<tr>
-				<td>{{ thought.username }}</td>
-				<td>{{ thought.timestamp }}</td> 
-				<td>{{ thought.thinking_about }}</td>  
-				<td>{{ thought.thoughts }}</td>
-				
-			</tr>
-			{% endfor %}
-		</table>
-	</div>
-	
+    {% include "nav_update.html" %}
 </div>
+
 
 {% endblock %}

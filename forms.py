@@ -39,7 +39,7 @@ class ThinkingForm(FlaskForm):
     submit = SubmitField('Say It')
 
 class LifeHacksForm(FlaskForm):
-    hack_title = StringField('Life Hack Title', validators=[DataRequired()])
+    hack_title = StringField('Title', validators=[DataRequired()])
     hack_description = TextAreaField('Life Hack Description', validators=[DataRequired()])
     submit = SubmitField('Hack It')
 

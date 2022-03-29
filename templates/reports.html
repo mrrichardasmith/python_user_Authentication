@@ -5,28 +5,38 @@
 
 <div class="page">
     <div class="grid-container">   
-        <div class="item1 border">
+        <div class="item1">
             <div class="navOption">
                 <a href="{{ url_for('peoplereport') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/people.jpg') }}"></a>  
                 <p><a href="{{ url_for('peoplereport') }}">People Report</a></p>
             </div>
         </div>
-        <div class="item2 border">
+        <div class="item2">
             <div class="navOption">
                 <a href="{{ url_for('likesdislikesreport') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/thumbsupdown.png') }}"></a>  
                 <p><a href="{{ url_for('likesdislikesreport') }}">Likes & Dislikes Report</a></p>
             </div>
         </div>
-        <div class="item3 border">
-        three
+        <div class="item3">
+            <div class="navOption">
+                <a href="{{ url_for('thoughtreport') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/bulb.png') }}"></a>  
+                <p><a href="{{ url_for('thoughtreport') }}">Thoughts</a></p>
+            </div>
         </div>
-        <div class="item4 border">
-        four
+        <div class="item4">
+            <div class="navOption">
+                <a href="{{ url_for('lifehacksreport') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/hacks.png') }}"></a>  
+                <p><a href="{{ url_for('lifehacksreport') }}">Life Hacks</a></p>
+            </div>
         </div>
-        <div class="item5 border">
-        five
+        <div class="item5">
+            
+                <div class="navOption">
+                    <a href="{{ url_for('pulsereport') }}"><img class="navPic" src="{{ url_for('static', filename='pictures/howday2.png') }}"></a>  
+                    <p><a href="{{ url_for('pulsereport') }}">Pulse Report</a></p>
+                </div>
         </div>
-        <div class="item6 border">
+        <div class="item6">
         six
         </div>
     </div>

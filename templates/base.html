@@ -11,7 +11,8 @@
         {% endif %}
     </head>
     <body>
-        <center><h2>Family Focus</h2></center>
+        {% include 'nav_login.html' %}
+        <center><h2 class="headingColor">Family Focus</h2></center>
         
             <hr>
                 {% with messages = get_flashed_messages() %}
