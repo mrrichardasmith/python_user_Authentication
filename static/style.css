@@ -156,7 +156,7 @@ th, td {
   grid-template-areas:
     'dash1 dash1 dash2 dash2'
     'dash3 dash3 dash4 dash4'
-    'dash5 dash5 dash6 dash6 ';
+    'dash5 dash5 dash6 dash6';
   gap: 50px;
   padding: 20px;
 }

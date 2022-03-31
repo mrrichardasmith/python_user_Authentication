@@ -2,8 +2,47 @@
 
 {% block content %}
 
-
-<h1> On the way up or on the way down </h1>
+<div class="page">
+    <h1 class="mainTextColor">Monthly Tally</h1>
+    <form class="login-form" action="" method="post" novalidate>
+        {{ account.hidden_tag() }}
+    <table>
+        <tr>
+            <th>{{ account.salary_deposit.label }}</th>
+            <td>{{ account.salary_deposit }}</td>
+        </tr>
+        <tr>
+            <th>{{ account.housekeeping.label }}</th>
+            <td>{{ account.housekeeping }}</td>
+        </tr>
+        <tr>
+            <th>{{ account.electric.label }}</th>
+            <td>{{ account.electric }}</td>
+        </tr>
+        <tr>
+            <th>{{ account.gas.label }}</th>
+            <td>{{ account.gas }}</td>
+        </tr>
+        <tr>
+            <th>{{ account.counciltax.label }}</th>
+            <td>{{ account.counciltax }}</td>
+        </tr>
+        <tr>
+            <th>{{ account.streaming.label }}</th>
+            <td>{{ account.streaming }}</td>
+        </tr>
+        <tr>
+            <th>{{ account.lunches.label }}</th>
+            <td>{{ account.lunches }}</td>
+        </tr>
+        <tr>
+            <td>{{ account.submit() }}</td>
+        </tr>
+    </table>
+</form>
+    
+    
+</div>
 
 
 

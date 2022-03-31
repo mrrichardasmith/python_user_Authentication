@@ -82,3 +82,16 @@ class Admin(db.Model):
 @login.user_loader 
 def load_user(id): 
   return User.query.get(int(id))
+
+class Account(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    salary_deposit = db.Column(db.Float)
+    housekeeping = db.Column(db.Float)
+    electric = db.Column(db.Float)
+    gas = db.Column(db.Float)
+    counciltax = db.Column(db.Float)
+    streaming = db.Column(db.Float)
+    lunches = db.Column(db.Float)
+
+

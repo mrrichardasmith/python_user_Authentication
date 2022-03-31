@@ -1,8 +1,8 @@
 from asyncio.windows_events import NULL
 from cgitb import html
-from flask import request, render_template, flash, redirect,url_for
-from models import User, Likesdislikes, Thinking, Day_school, People, Admin, Life_hacks
-from forms import RegistrationForm, LoginForm, LikesDislikesForm, ThinkingForm, DaySchoolForm, GoodBadUglyForm, AdminForm, LifeHacksForm
+from flask import request, render_template, flash, redirect, url_for
+from models import User, Likesdislikes, Thinking, Day_school, People, Admin, Life_hacks, Account
+from forms import RegistrationForm, LoginForm, LikesDislikesForm, ThinkingForm, DaySchoolForm, GoodBadUglyForm, AdminForm, LifeHacksForm, AccountForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
@@ -142,6 +142,7 @@ def day():
     return redirect(url_for('people'))
 
 @app.route('/people', methods=['GET', 'POST'])
+@login_required
 def people():
   new_people = GoodBadUglyForm()
   if request.method == 'GET':
@@ -164,6 +165,7 @@ def faces  ():
     return render_template('faces.html')
 
 @app.route('/lifehacks', methods=['GET', 'POST'])
+@login_required
 def lifehacks():
   hack = LifeHacksForm()
   if  request.method == 'GET':
@@ -180,15 +182,25 @@ def lifehacks():
     
   
 @app.route('/housekeeping', methods=['GET', 'POST'])
+@login_required
 def housekeeping():
-  #housekeeping = HouseKeepingForm()
+  account = AccountForm()
   if  request.method == 'GET':
-    
+    salary = Account.query.get(1)
+    if salary.housekeeping and salary.date:
+      print(salary.date.month)
 
-    return render_template('housekeeping.html', user=current_user)
+    print(salary.housekeeping)
+    return render_template('housekeeping.html', user=current_user, account=account)
 
+  if request.method == 'POST':
+    new_account = Account(salary_deposit=account.salary_deposit.data, housekeeping=account.housekeeping.data, electric=account.electric.data, gas=account.gas.data, counciltax=account.counciltax.data, streaming=account.streaming.data, lunches=account.lunches.data )
+    db.session.add(new_account)
+    db.session.commit()
+    return redirect(url_for('housekeeping'))
 
 @app.route('/likesdislikes', methods=['GET', 'POST'])
+@login_required
 def likesdislikes():
   form = LikesDislikesForm()
   if request.method == 'GET':
@@ -210,12 +222,14 @@ def likesdislikes():
     return redirect(url_for('index'))
     
 @app.route('/reports')
+@login_required
 def reports():
   if request.method == 'GET':
     
     return render_template('reports.html')
 
 @app.route('/pulse_report')
+@login_required
 def pulsereport():
   if request.method == 'GET':
     new_date = datetime.now() - timedelta(days = 30)
@@ -223,6 +237,7 @@ def pulsereport():
     return render_template('familypulsereport.html', days=days, testdelete=testdelete)
 
 @app.route('/likesdislikes_report')
+@login_required
 def likesdislikesreport():
   if request.method == 'GET':
     new_date = datetime.now() - timedelta(days = 30)
@@ -230,6 +245,7 @@ def likesdislikesreport():
     return render_template('likesdislikesreport.html', likesdislikes=likesdislikes)
 
 @app.route('/people_report')
+@login_required
 def peoplereport():
   if request.method == 'GET':
     new_date = datetime.now() - timedelta(days = 30)
@@ -242,6 +258,7 @@ def peoplereport():
     return render_template('peoplereport.html', people=people)
 
 @app.route('/thoughts_report')
+@login_required
 def thoughtreport():
   if request.method == 'GET':
     new_date = datetime.now() - timedelta(days = 30)
@@ -250,6 +267,7 @@ def thoughtreport():
     return render_template('thoughtsreport.html', thoughts=thoughts)
 
 @app.route('/lifehacks_report')
+@login_required
 def lifehacksreport():
   if request.method == 'GET':
     new_date = datetime.now() - timedelta(days = 30)

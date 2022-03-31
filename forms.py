@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, DateTimeField, RadioField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, DateTimeField, RadioField, TextAreaField, DecimalField
 from wtforms.validators import ValidationError, DataRequired, EqualTo, Email
 from models import User
 
@@ -56,5 +56,15 @@ class GoodBadUglyForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class AdminForm(FlaskForm):
-      registration = BooleanField('Disable Registration')  
-      submit = SubmitField('Save Change')
+    registration = BooleanField('Disable Registration')  
+    submit = SubmitField('Save Change')
+
+class AccountForm(FlaskForm):
+    salary_deposit = DecimalField('Monthly Salary Deposit')
+    housekeeping = DecimalField('Houskeeping')
+    electric = DecimalField('Electric')
+    gas = DecimalField('Gas')
+    counciltax = DecimalField('Council Tax')
+    streaming = DecimalField('Streaming')
+    lunches = DecimalField('Lunches')
+    submit = SubmitField('Rack the Tab')
