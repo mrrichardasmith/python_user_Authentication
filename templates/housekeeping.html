@@ -7,14 +7,41 @@
     <form class="login-form" action="" method="post" novalidate>
         {{ account.hidden_tag() }}
     <table>
+        
+        {% if active.salary_deposit == None or active == None %}
         <tr>
             <th>{{ account.salary_deposit.label }}</th>
             <td>{{ account.salary_deposit }}</td>
         </tr>
+        {% else %}
+        <tr>
+            <th>{{ account.salary_deposit.label }}</th>
+            <td>{{ active.salary_deposit }}</td>
+        </tr>
+        {% endif %}
+        {% if active == None %}
+        <tr>
+            <th>Month</th>
+            <td>{{ account.start }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <th>Month</th>
+            <td>{{ active.month }}</td>
+        </tr>
+        {% endif %}
+        
+        {% if active.housekeeping == None %}
         <tr>
             <th>{{ account.housekeeping.label }}</th>
             <td>{{ account.housekeeping }}</td>
         </tr>
+        {% else %}
+        <tr>
+            <th>Housekeeping</th>
+            <td>{{ active.housekeeping }}</td>
+        </tr>
+        {% endif %}
         <tr>
             <th>{{ account.electric.label }}</th>
             <td>{{ account.electric }}</td>
@@ -35,9 +62,12 @@
             <th>{{ account.lunches.label }}</th>
             <td>{{ account.lunches }}</td>
         </tr>
+        
+        {% if active.month %}
         <tr>
             <td>{{ account.submit() }}</td>
         </tr>
+        {% endif %}
     </table>
 </form>
     

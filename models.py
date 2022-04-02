@@ -1,4 +1,5 @@
 from datetime import datetime
+from email.policy import default
 from enum import unique
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
@@ -86,6 +87,7 @@ def load_user(id):
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    month = db.Column(db.Integer)
     salary_deposit = db.Column(db.Float)
     housekeeping = db.Column(db.Float)
     electric = db.Column(db.Float)

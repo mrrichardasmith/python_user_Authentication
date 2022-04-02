@@ -1,5 +1,6 @@
 from asyncio.windows_events import NULL
 from cgitb import html
+from xmlrpc.client import DateTime
 from flask import request, render_template, flash, redirect, url_for
 from models import User, Likesdislikes, Thinking, Day_school, People, Admin, Life_hacks, Account
 from forms import RegistrationForm, LoginForm, LikesDislikesForm, ThinkingForm, DaySchoolForm, GoodBadUglyForm, AdminForm, LifeHacksForm, AccountForm
@@ -185,18 +186,32 @@ def lifehacks():
 @login_required
 def housekeeping():
   account = AccountForm()
+  todayDate = datetime.now()
+  print(todayDate.month)
+  active = Account.query.filter(Account.month == todayDate.month).first()
   if  request.method == 'GET':
-    salary = Account.query.get(1)
-    if salary.housekeeping and salary.date:
-      print(salary.date.month)
-
-    print(salary.housekeeping)
-    return render_template('housekeeping.html', user=current_user, account=account)
+    
+    if active == None or active.housekeeping == None:
+      print('Housekeeping Not set yet')
+    
+    return render_template('housekeeping.html', user=current_user, account=account, active=active)
 
   if request.method == 'POST':
-    new_account = Account(salary_deposit=account.salary_deposit.data, housekeeping=account.housekeeping.data, electric=account.electric.data, gas=account.gas.data, counciltax=account.counciltax.data, streaming=account.streaming.data, lunches=account.lunches.data )
-    db.session.add(new_account)
-    db.session.commit()
+
+    if active == None:
+      new_account = Account(month=todayDate.month, salary_deposit=account.salary_deposit.data, housekeeping=account.housekeeping.data, electric=account.electric.data, gas=account.gas.data, counciltax=account.counciltax.data, streaming=account.streaming.data, lunches=account.lunches.data )
+      db.session.add(new_account)
+          
+    elif active.salary_deposit == None:
+      active.salary_deposit = account.salary_deposit.data
+      
+    else:
+      active.housekeeping=account.housekeeping.data
+      active.electric=account.electric.data
+      active.gas = account.gas.data
+      active.counciltax = account.counciltax.data
+      active.streaming = account.streaming.data
+    db.session.commit()  
     return redirect(url_for('housekeeping'))
 
 @app.route('/likesdislikes', methods=['GET', 'POST'])

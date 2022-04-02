@@ -4,7 +4,7 @@
 
 <div class="page">
       <form class="form" method="post">
-        <h1 class="HeadingColor">Hi {{ current_user.username }} </h1>   
+        <h1 class="HeadingColor">Hi {{ current_user.username.capitalize() }} </h1>   
         <h1 class="HeadingColor">Sharing your thoughts helps everybody in the family</h1>
         {{ form.hidden_tag() }}      
         <p>

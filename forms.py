@@ -60,7 +60,8 @@ class AdminForm(FlaskForm):
     submit = SubmitField('Save Change')
 
 class AccountForm(FlaskForm):
-    salary_deposit = DecimalField('Monthly Salary Deposit')
+    start = SubmitField('Start Month')
+    salary_deposit = DecimalField('Monthly Salary Deposit', validators=[DataRequired()])
     housekeeping = DecimalField('Houskeeping')
     electric = DecimalField('Electric')
     gas = DecimalField('Gas')
