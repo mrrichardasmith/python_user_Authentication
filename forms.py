@@ -62,9 +62,9 @@ class AdminForm(FlaskForm):
 class AccountForm(FlaskForm):
     start = SubmitField('Start Month')
     salary_deposit = DecimalField('Monthly Salary Deposit', validators=[DataRequired()])
+    rent = DecimalField('Rent')
     housekeeping = DecimalField('Houskeeping')
     electric = DecimalField('Electric')
-    gas = DecimalField('Gas')
     counciltax = DecimalField('Council Tax')
     streaming = DecimalField('Streaming')
     lunches = DecimalField('Lunches')

@@ -80,20 +80,19 @@ class Admin(db.Model):
     registration = db.Column(db.Boolean)
     
 
-@login.user_loader 
-def load_user(id): 
-  return User.query.get(int(id))
-
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     month = db.Column(db.Integer)
     salary_deposit = db.Column(db.Float)
+    rent = db.Column(db.Float)
     housekeeping = db.Column(db.Float)
     electric = db.Column(db.Float)
-    gas = db.Column(db.Float)
     counciltax = db.Column(db.Float)
     streaming = db.Column(db.Float)
     lunches = db.Column(db.Float)
 
 
+@login.user_loader 
+def load_user(id): 
+  return User.query.get(int(id))

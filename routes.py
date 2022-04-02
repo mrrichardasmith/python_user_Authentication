@@ -8,7 +8,8 @@ from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from datetime import datetime, timedelta 
-  
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -78,8 +79,6 @@ def admin(username):
       new_admin.registration = True
     db.session.commit()
     return redirect(url_for('admin', username=current_user.username))
-
-
 
 @app.route('/')
 def index():
@@ -182,37 +181,72 @@ def lifehacks():
     return redirect(url_for('lifehacks'))
     
   
-@app.route('/housekeeping', methods=['GET', 'POST'])
+@app.route('/accounts', methods=['GET', 'POST'])
 @login_required
-def housekeeping():
+def accounts():
   account = AccountForm()
   todayDate = datetime.now()
   print(todayDate.month)
   active = Account.query.filter(Account.month == todayDate.month).first()
   if  request.method == 'GET':
-    
-    if active == None or active.housekeeping == None:
-      print('Housekeeping Not set yet')
-    
-    return render_template('housekeeping.html', user=current_user, account=account, active=active)
+    total = 0
+    remaining = 0
+    if active != None and active.rent != None:
+      total += active.rent 
+    if active != None and active.housekeeping != None:
+      total += active.housekeeping
+    if active != None and active.electric != None:
+      total += active.electric
+    if active != None and active.counciltax != None:
+      total += active.counciltax
+    if active != None and active.streaming != None:
+      total += active.streaming
+    if active != None and active.lunches != None:
+      total += active.lunches
+    if active != None and active.salary_deposit != None:
+      remaining = active.salary_deposit - total
+    print(remaining)
+
+    return render_template('accounts.html', user=current_user, account=account, active=active, remaining=remaining)
 
   if request.method == 'POST':
 
     if active == None:
-      new_account = Account(month=todayDate.month, salary_deposit=account.salary_deposit.data, housekeeping=account.housekeeping.data, electric=account.electric.data, gas=account.gas.data, counciltax=account.counciltax.data, streaming=account.streaming.data, lunches=account.lunches.data )
-      db.session.add(new_account)
-          
-    elif active.salary_deposit == None:
-      active.salary_deposit = account.salary_deposit.data
-      
-    else:
+      new_account = Account(month=todayDate.month, salary_deposit=account.salary_deposit.data, rent=account.rent.data,  housekeeping=account.housekeeping.data, electric=account.electric.data, counciltax=account.counciltax.data, streaming=account.streaming.data, lunches=account.lunches.data )
+      db.session.add(new_account)  
+
+    if active != None and active.salary_deposit == None:
+       active.salary_deposit = account.salary_deposit.data
+
+    if active != None and active.rent == None:
+      active.rent=account.rent.data
+        
+    if active != None and active.housekeeping == None:
       active.housekeeping=account.housekeeping.data
+
+    if active != None and active.electric == None:
       active.electric=account.electric.data
-      active.gas = account.gas.data
+        
+    if active != None and active.counciltax == None:
       active.counciltax = account.counciltax.data
+
+    if active != None and active.streaming == None:
       active.streaming = account.streaming.data
+
+    if active != None and active.lunches == None:
+      active.lunches = account.lunches.data
+
     db.session.commit()  
-    return redirect(url_for('housekeeping'))
+    return redirect(url_for('accounts'))
+
+@app.route('/lunches', methods=['GET', 'POST'])
+@login_required
+def lunches():
+
+  if request.method == 'GET':
+
+    return render_template('lunches.html')
+
 
 @app.route('/likesdislikes', methods=['GET', 'POST'])
 @login_required
@@ -315,5 +349,14 @@ def testupdate(id, yourday):
 
   return 'This is a test update'
 
+def month_from_number(number):
+  if number == 1:
+    return 'January'
+  elif number == 2:
+    return 'February'
+  else: 
+    return 'go away'
 
+
+    
   

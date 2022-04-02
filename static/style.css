@@ -15,7 +15,7 @@
   position: relative;
   z-index: 1;
   background: #FFFFFF;
-  max-width: 360px;
+  width: 80%;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
@@ -130,7 +130,8 @@ body {
 }
 
 table {
-  border: 1px solid #ffa700;
+  min-width: 80%;
+  margin: auto;
 }
 
 table tr:nth-child(even){
@@ -204,3 +205,10 @@ th, td {
   font-size: 1.25rem;
 }
 
+.green  {
+  color: #43A047;
+}
+
+.red {
+  color: #ff5252;
+}
