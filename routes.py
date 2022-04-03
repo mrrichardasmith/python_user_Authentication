@@ -2,8 +2,8 @@ from asyncio.windows_events import NULL
 from cgitb import html
 from xmlrpc.client import DateTime
 from flask import request, render_template, flash, redirect, url_for
-from models import User, Likesdislikes, Thinking, Day_school, People, Admin, Life_hacks, Account
-from forms import RegistrationForm, LoginForm, LikesDislikesForm, ThinkingForm, DaySchoolForm, GoodBadUglyForm, AdminForm, LifeHacksForm, AccountForm
+from models import User, Likesdislikes, Thinking, Day_school, People, Admin, Life_hacks, Account, Workfood
+from forms import RegistrationForm, LoginForm, LikesDislikesForm, ThinkingForm, DaySchoolForm, GoodBadUglyForm, AdminForm, LifeHacksForm, AccountForm, workfoodForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
@@ -175,7 +175,7 @@ def lifehacks():
 
   if request.method == 'POST' and hack.validate():
     print('Family Hacks')
-    new_hack = Life_hacks(hacktitle=hack.hack_title.data, hackdescription=hack.hack_description.data, username=current_user.username)
+    new_hack = Life_hacks(hacktitle=hack.hack_title.data, hackdescription=hack.hack_description.data, username=current_user.user)
     db.session.add(new_hack)
     db.session.commit()
     return redirect(url_for('lifehacks'))
@@ -186,7 +186,6 @@ def lifehacks():
 def accounts():
   account = AccountForm()
   todayDate = datetime.now()
-  print(todayDate.month)
   active = Account.query.filter(Account.month == todayDate.month).first()
   if  request.method == 'GET':
     total = 0
@@ -197,26 +196,48 @@ def accounts():
       total += active.housekeeping
     if active != None and active.electric != None:
       total += active.electric
+    if active != None and active.internet != None:
+      total += active.internet
     if active != None and active.counciltax != None:
       total += active.counciltax
     if active != None and active.streaming != None:
       total += active.streaming
-    if active != None and active.lunches != None:
-      total += active.lunches
+    if active != None and active.family_entertainment != None:
+      total += active.family_entertainment
+    if active != None and active.takeaway != None:
+      total += active.takeaway
+    if active != None and active.shopping != None:
+      total += active.shopping  
+    if active != None and active.workfood != None:
+      total += active.workfood
     if active != None and active.salary_deposit != None:
       remaining = active.salary_deposit - total
-    print(remaining)
+    if active != None and active.windfall != None:
+      remaining = remaining + active.windfall 
+      print(remaining)
+
 
     return render_template('accounts.html', user=current_user, account=account, active=active, remaining=remaining)
 
   if request.method == 'POST':
-
+    #extra groceries
+    #extra grocery details
+    #water
+    #transport
+    #bakery
+    #Fitness
+    #subscriptions
+    #Investments
+    #Insurance
     if active == None:
-      new_account = Account(month=todayDate.month, salary_deposit=account.salary_deposit.data, rent=account.rent.data,  housekeeping=account.housekeeping.data, electric=account.electric.data, counciltax=account.counciltax.data, streaming=account.streaming.data, lunches=account.lunches.data )
+      new_account = Account(month=todayDate.month, year=todayDate.year, salary_deposit=account.salary_deposit.data, windfall=account.windfall.data, rent=account.rent.data,  housekeeping=account.housekeeping.data, electric=account.electric.data, internet=account.internet.data, counciltax=account.counciltax.data, streaming=account.streaming.data, family_entertainment=account.family_entertainment.data, takeaway=account.takeaway.data, shopping=account.shopping.data, workfood=account.workfood.data, username=current_user.username )
       db.session.add(new_account)  
 
     if active != None and active.salary_deposit == None:
        active.salary_deposit = account.salary_deposit.data
+
+    if active != None and active.windfall == None:
+       active.windfall = account.windfall.data
 
     if active != None and active.rent == None:
       active.rent=account.rent.data
@@ -226,6 +247,9 @@ def accounts():
 
     if active != None and active.electric == None:
       active.electric=account.electric.data
+
+    if active != None and active.internet == None:
+      active.internet=account.internet.data
         
     if active != None and active.counciltax == None:
       active.counciltax = account.counciltax.data
@@ -233,19 +257,38 @@ def accounts():
     if active != None and active.streaming == None:
       active.streaming = account.streaming.data
 
-    if active != None and active.lunches == None:
-      active.lunches = account.lunches.data
+    if active != None and active.family_entertainment == None:
+      active.family_entertainment = account.family_entertainment.data
+
+    if active != None and active.takeaway == None:
+      active.takeaway = account.takeaway.data
+    
+    if active != None and active.shopping == None:
+      active.shopping = account.shopping.data
+
+    if active != None and active.workfood == None:
+      active.workfood = account.workfood.data
 
     db.session.commit()  
     return redirect(url_for('accounts'))
 
-@app.route('/lunches', methods=['GET', 'POST'])
+@app.route('/workfood', methods=['GET', 'POST'])
 @login_required
-def lunches():
+def workfood():
+  workfood = workfoodForm()
+  todayDate = datetime.now()
 
   if request.method == 'GET':
 
-    return render_template('lunches.html')
+    return render_template('workfood.html', workfood=workfood)
+
+  if request.method == 'POST':
+
+    new_workfood = Workfood(month=todayDate.month, year=todayDate.year, work_breakfast=workfood.work_breakfast.data, work_lunch=workfood.work_lunch.data, after_work_social=workfood.after_work_social.data, work_snacks_me=workfood.work_snacks_me.data, work_snacks_share=workfood.work_snacks_share.data, username=current_user.username)
+    db.session.add(new_workfood)
+    db.session.commit()
+    return redirect(url_for('workfood')) 
+
 
 
 @app.route('/likesdislikes', methods=['GET', 'POST'])

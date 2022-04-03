@@ -31,6 +31,17 @@
             <td>{{ active.month }}</td>
         </tr>
         {% endif %}
+        {% if active.windfall == None %}
+        <tr>
+            <th>{{ account.windfall.label }}</th>
+            <td>{{ account.windfall }}</td>
+        </tr>
+        {% else %}
+        <tr class="green">
+            <th>Windfall Funds</th>
+            <td>{{ active.windfall }}</td>
+        </tr>
+        {% endif %}
         {% if active.rent == None %}
         <tr>
             <th>{{ account.rent.label }}</th>
@@ -64,6 +75,17 @@
             <td>{{ active.electric }}</td>
         </tr>
         {% endif %}
+        {% if active.internet == None %}
+        <tr>
+            <th>Internet</th>
+            <td>{{ account.internet }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <th>Internet</th>
+            <td>{{ active.internet }}</td>
+        </tr>
+        {% endif %}
         {% if active.counciltax == None %}
         <tr>
             <th>{{ account.counciltax.label }}</th>
@@ -86,22 +108,52 @@
             <td>{{ active.streaming }}</td>
         </tr>
         {% endif %}
-        {% if active.lunches == None %}
+        {% if active.family_entertainment == None %}
         <tr>
-            <th>{{ account.lunches.label }}</th>
-            <td>{{ account.lunches }}</td>
+            <th>{{ account.family_entertainment.label }}</th>
+            <td>{{ account.family_entertainment }}</td>
         </tr>
         {% else %}
         <tr>
-            <th>Lunches</th>
-            <td>{{ active.lunches }}</td>
+            <th>Family Entertainment</th>
+            <td>{{ active.family_entertainment }}</td>
+        </tr>
+        {% endif %}
+        {% if active.takeaway == None %}
+        <tr>
+            <th>{{ account.takeaway.label }}</th>
+            <td>{{ account.takeaway }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <th>Takeaway</th>
+            <td>{{ active.takeaway }}</td>
+        </tr>
+        {% endif %}
+        {% if active.shopping == None %}
+        <tr>
+            <th>{{ account.shopping.label }}</th>
+            <td>{{ account.shopping }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <th>More Stuff</th>
+            <td>{{ active.shopping }}</td>
+        </tr>
+        {% endif %}
+        {% if active.workfood == None %}
+        <tr>
+            <th>{{ account.workfood.label }}</th>
+            <td>{{ account.workfood }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <th>Work Food</th>
+            <td>{{ active.workfood }}</td>
         </tr>
         {% endif %}
         
         {% if active.month %}
-        <tr>
-            <td>{{ account.submit() }}</td>
-        </tr>
         {% endif %}
         {% if remaining > 0 %}
         <tr class="green">
@@ -112,6 +164,7 @@
             <td><strong>{{ remaining }}</strong></td>
         </tr>
     </table>
+    <p>{{ account.submit() }}</p>
 </form>
     
     

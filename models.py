@@ -1,6 +1,7 @@
 from datetime import datetime
 from email.policy import default
 from enum import unique
+from operator import index
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
 from flask_login import UserMixin
@@ -84,13 +85,32 @@ class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     month = db.Column(db.Integer)
+    year = db.Column(db.Integer)
     salary_deposit = db.Column(db.Float)
+    windfall = db.Column(db.Float)
     rent = db.Column(db.Float)
     housekeeping = db.Column(db.Float)
     electric = db.Column(db.Float)
     counciltax = db.Column(db.Float)
+    internet = db.Column(db.Float)
     streaming = db.Column(db.Float)
-    lunches = db.Column(db.Float)
+    family_entertainment = db.Column(db.Float)
+    takeaway = db.Column(db.Float)
+    shopping = db.Column(db.Float)
+    workfood = db.Column(db.Float)
+    username = db.Column(db.String, db.ForeignKey('user.username'))
+
+class Workfood(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    month = db.Column(db.Integer)
+    year = db.Column(db.Integer)
+    work_breakfast = db.Column(db.Float)
+    work_lunch = db.Column(db.Float)
+    after_work_social = db.Column(db.Float)
+    work_snacks_me = db.Column(db.Float)
+    work_snacks_share = db.Column(db.Float)
+    username = db.Column(db.String, db.ForeignKey('user.username'))
 
 
 @login.user_loader 
